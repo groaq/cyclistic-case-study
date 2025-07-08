@@ -69,9 +69,11 @@ With this type of data, there are a lot of avenues to explore how casual and mem
 
 Now, while the data is consistent across all of the months, it's not ready for analysis yet. The first thing I'd like to do while I'm working with the files in Excel, is add some new columns to give each record some more information to work with. The columns I add are ride_length, day_of_week and month_of_year. These new columns will give a bit more context for each ride and make it easier to make calculations and comparisons between data later.
 
-- ride_length: In order to calculate the duration of each ride, I simply subtracted the existing start_time from end_time columns for each row in Excel. (For example, =D2-C2)
+- ride_length: In order to calculate the duration of each ride, I simply subtracted the existing start_time from end_time columns for each row in Excel.
 - day_of_week: To extract the day of the week of each ride, I use the function WEEKDAY on each ride's start_time.
-- month_of_year: Similarly to day_of_week, I extract the month using the MONTH function from the date provided from start_time. 
+- month_of_year: Similarly to day_of_week, I extract the month using the MONTH function from the date provided from start_time.
+
+After adding these columns, I can start cleaning the data. With the use of conditional formatting on the newly added ride_length column, I can quickly scan through the data for outliers. 
 
 ## Repository Contents
 
