@@ -73,7 +73,17 @@ Now, while the data is consistent across all of the months, it's not ready for a
 - day_of_week: To extract the day of the week of each ride, I use the function WEEKDAY on each ride's start_time.
 - month_of_year: Similarly to day_of_week, I extract the month using the MONTH function from the date provided from start_time.
 
-After adding these columns, I can start cleaning the data. With the use of conditional formatting on the newly added ride_length column, I can quickly scan through the data for outliers. 
+After adding these columns, I can start cleaning the data. With the use of conditional formatting on the newly added ride_length column, I can quickly scan through the data for outliers.
+![dirty_data](images/dirty_data.png)
+A ride length of this duration is more than likely an issue and doesn't reflect the real duration of the ride. 
+
+I want to get rid of all results like this, but instead of manually scanning through thousands of records to remove each outlier, I use Excel's IF function to to test for a specific condition.
+
+![length_check](images/length_check_function.png)
+I settle on marking rows that have a ride duration over 12 hours as "Too Long". While it is possible to have a legitimate ride last more than or equal to 12 hours, I recognize that a vast majority of the other records exceeding this time will be errors; whether it be from Cyclistic's hardware or from human error not docking the rideable properly when finished. 
+
+Now that the rows exceeding 12 hours have been marked as "Too Long" I can filter by just the rows matching that result and delete them in one chunk.
+![check_result](images/length_check_result.png)
 
 ## Repository Contents
 
