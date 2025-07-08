@@ -36,6 +36,43 @@ Moreno has assigned me the first question to answer:
 
 ---
 
+## Ask Phase
+
+I now have the context for the scenario and the question we're trying to answer, but it's important to dig a little deeper. What exactly is the problem I'm trying to solve, and how can my insights drive business decisions? 
+In order to get a clear objective here, I write out a statement of the business task:
+
+**Using Cyclistic’s historical trip data, identify the key differences between how annual members and casual riders use Cyclistic bikes. After identifying these differences, propose three recommendations to convert casual riders into annual members.**
+
+With this statement in mind, our intentions and goals throughout this project are unambiguous and straightforward - We're trying to convert casual riders into annual members, and to do that we must understand how each type of rider utilizes Cyclistic differently. Once we understand the differences, we can cater to casual riders to drive sales for annual memberships. 
+
+## Prepare Phase
+
+With the statement of the business task laid out, I begin to gather the data I need to get started. Cyclistic has historical trip data [found here](https://divvy-tripdata.s3.amazonaws.com/index.html). There are a lot of months and years to choose from, but for my purposes, I chose the year 2024 as it is the most recent and complete year containing data for all months. Each month is its own file so I'm working with 12 separate excel files. The columns and headers for each file are consistent with one another and they contain the following headers:
+
+- ride_id
+- rideable_type
+- started_at
+- ended_at
+- start_station_name
+- start_station_id
+- end_station_name
+- end_station_id
+- start_lat
+- start_lng
+- end_lat
+- end_lng
+- member_casual
+
+With this type of data, there are a lot of avenues to explore how casual and member riders use Cyclistic differently! There's information on what kind of rideable is being used, when a ride started and ended, geographical data, and perhaps most importantly we get to see whether a ride was taken by a member or a casual rider.
+
+## Process Phase
+
+Now, while the data is consistent across all of the months, it's not ready for analysis yet. The first thing I'd like to do while I'm working with the files in Excel, is add some new columns to give each record some more information to work with. The columns I add are ride_length, day_of_week and month_of_year. These new columns will give a bit more context for each ride and make it easier to make calculations and comparisons between data later.
+
+- ride_length: In order to calculate the duration of each ride, I simply subtracted the existing start_time from end_time columns for each row in Excel. (For example, =D2-C2)
+- day_of_week: To extract the day of the week of each ride, I use the function WEEKDAY on each ride's start_time.
+- month_of_year: Similarly to day_of_week, I extract the month using the MONTH function from the date provided from start_time. 
+
 ## Repository Contents
 
 - `datasets/` - The datasets used in this project.
