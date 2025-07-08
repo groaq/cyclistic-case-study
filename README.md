@@ -38,9 +38,10 @@ Moreno has assigned me the first question to answer:
 
 ## Repository Contents
 
+- `datasets/` - The datasets used in this project.
 - `sql/` – Contains SQL queries and scripts used for data wrangling and analysis.
 - `visualizations/` – For Tableau dashboard files and other visualizations.
-
+  
 ---
 
 ## Tableau Dashboard
