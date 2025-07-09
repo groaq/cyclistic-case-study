@@ -77,7 +77,7 @@ After adding these columns, I can start cleaning the data. With the use of condi
 ![dirty_data](images/dirty_data.png)
 A ride length of this duration is more than likely an issue and doesn't reflect the real duration of the ride. 
 
-I want to get rid of all results like this, but instead of manually scanning through thousands of records to remove each outlier, I use Excel's IF function to to test for a specific condition.
+I want to get rid of all results like this, but instead of manually scanning through thousands of records to remove each outlier, I use Excel's IF function to to test for a specific condition. 
 
 ![length_check](images/length_check_function.png)
 
@@ -85,6 +85,91 @@ I settle on marking rows that have a ride duration over 12 hours as "Too Long". 
 
 Now that the rows exceeding 12 hours have been marked as "Too Long" I can filter by just the rows matching that result and delete them in one chunk.
 ![check_result](images/length_check_result.png)
+
+With the ride_length outliers removed, our data is looking a lot better. I do some final checks of dirty data and I find that there seem to be chunks of data missing, particularly when it came to start and end station IDs and names. While blank data is not ideal, I decide that it would be best *not* to remove the rows missing data regarding station information. The reason being, there is still a lot of useful data in those rows that can be used for analysis. Additionally, the data pertaining to latitude and longitude of start and end points are present in all rows so I can still get accurate geographical data.
+
+## Analyze Phase
+
+For analysis, I chose to work with SQL as it handles large amounts of data a lot better than Excel. I create a Cyclistic database and import my Excel files of the trip data into their own tables. Once everything has been properly imported and everything looks good, I run my first query:
+```
+-- Combining the separate months of data into one table
+SELECT
+	*
+INTO
+	td_year
+FROM(
+	SELECT * FROM cyclistic.dbo.td_january
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_february
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_march
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_april
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_may
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_june
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_july
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_august
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_september
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_october
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_november
+	UNION ALL
+	SELECT * FROM cyclistic.dbo.td_december
+	)t;
+```
+This query gathers all trip data from our separate tables of each month and inserts that into one table called td_year. By having everything in one table, it will be a lot easier to analyze the data as a whole. I decide to do just that with my next query: 
+```
+-- Getting a quick glimpse of the two types of riders.
+SELECT
+	member_casual AS type,
+	COUNT(*) AS num_riders,
+	CONVERT(TIME, DATEADD(SECOND, AVG(DATEDIFF_BIG(SECOND, 0, ride_length)), 0)) AS average_duration,
+	ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM td_year), 2) AS percentage
+FROM
+	td_year
+GROUP BY
+	member_casual
+ORDER BY
+	member_casual;
+```
+This is the result of the query:
+
+![glimpse](images/glimpse_result.png)
+
+This simple query already gives us a lot of perspective on these two types of riders! Members make up about 2/3rds of the rider population and casuals ride for longer on average. Now that I know what the numbers look like in general for each type of rider, I want to run a similar query but for each day of the week to see what trends come up:
+```
+-- Viewing trends of riders during different days of the week.
+SELECT
+	member_casual AS type,
+	CASE CAST(day_of_week AS INT)
+        WHEN 1 THEN 'Sunday'
+        WHEN 2 THEN 'Monday'
+        WHEN 3 THEN 'Tuesday'
+        WHEN 4 THEN 'Wednesday'
+        WHEN 5 THEN 'Thursday'
+        WHEN 6 THEN 'Friday'
+        WHEN 7 THEN 'Saturday'
+        ELSE 'Invalid'
+    END AS day_name,
+	COUNT(*) AS num_riders,
+	ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM td_year), 2) AS percentage
+FROM
+	td_year
+GROUP BY
+	member_casual, day_of_week
+ORDER BY
+	num_riders DESC;
+```
+Result:
+
+![week_trends](images/day_of_week_trends.png)
+
 
 ## Repository Contents
 
