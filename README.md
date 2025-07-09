@@ -170,6 +170,27 @@ Result:
 
 ![week_trends](images/day_of_week_trends.png)
 
+Immediately, it's clear that members outperform casual riders on any given day. Not too surprising since members account for nearly double the amount of rides of casual riders. What's more important to look at are the most popular days for each type of rider. It seems members seem to favor the weekdays while casual riders are more active on the weekends. Now that I know what days are popular for each type of rider, I want to check on the months.
+
+```
+SELECT
+	member_casual AS type,
+	month_of_year,
+	COUNT(*) AS num_riders,
+	ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM td_year), 2) AS percentage
+FROM
+	td_year
+GROUP BY
+	member_casual, month_of_year
+ORDER BY
+	member_casual, month_of_year;
+```
+This query gives the following result:
+
+![month_trends](images/month_trends.png)
+
+I'm relying on the percentage column I added to the query to quickly identify months where activity increases. After doing so, I notice that the trends in activity are quite similar between members and casual riders. It makes sense that riders are more active in the spring and summer months - better weather makes for better riding conditions.
+
 
 ## Repository Contents
 
