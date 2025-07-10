@@ -213,7 +213,107 @@ Result:
 
 The trends regarding the rideable usage are quite similar between the two groups. With both member and casual riders we have the electric bike being the most used, followed closely by the classic bike, then finally we have the electric scooter as the least used option of the three. 
 
-Now, I want to explore the geographical data. I'll run a query to see where both types of riders are most commonly starting and ending their rides.
+Now, I want to explore the geographical data. I'll run a query to see where both types of riders are most commonly starting and ending their rides. To easily compare the start and end locations for casual riders, I'll write a query containing two common table expressions and join the tables on row number:
+```
+--Using CTEs to compare start and end trend for casuals.
+WITH StartStations AS (
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) AS rn,
+        start_station_name,
+        COUNT(*) AS num_riders
+    FROM 
+		td_year
+    WHERE 
+		member_casual = 'casual' AND start_station_name IS NOT NULL
+    GROUP BY 
+		start_station_name
+),
+EndStations AS (
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) AS rn,
+        end_station_name,
+        COUNT(*) AS num_riders
+    FROM 
+		td_year
+    WHERE 
+		member_casual = 'casual' AND end_station_name IS NOT NULL
+    GROUP BY 
+		end_station_name
+)
+SELECT
+    s.start_station_name,
+    s.num_riders AS start_num_casuals,
+    e.end_station_name,
+    e.num_riders AS end_num_casuals
+FROM 
+	StartStations AS s
+JOIN 
+	EndStations AS e ON s.rn = e.rn
+WHERE 
+	s.rn <= 10
+ORDER BY 
+	s.num_riders DESC;
+```
+This query is just grabbing data from the casual riders, but the setup is essentially the same for member riders - I just swapped the conditions in the WHERE clauses and changed some of the column names. I chose to query the two types of riders separately so the table wouldn't be too cluttered. Here is the result of those two queries:
+![location_trends](images/member_casual_location_trends.png)
+
+There are a lot of insights to be had from this data: 
+- The thing that sticks out to me most is the distribution difference between casual and member riders. The top location for casual riders _Streeter Dr & Grand Ave_ beats the second most popular spot by nearly 20,000 rides in both starting and ending location. After that, the numbers seem to stick closer together as we go through the rest of the top 10. Compare that to the member riders, the top 10 numbers for both starting and ending are quite even across the board. The difference between the #1 spot and #10 spot for both starting and ending locations is about 10,000 - only half of the difference between casual activity from their #1 to #2 spots.
+
+- The starting and ending locations seem to be at the same relative rank for both tables. This leads me to believe most rides are round trip, meaning the rides will start and end at the same spot.
+
+- Casual and member riders don't share top common starting or ending locations.
+
+- Member riders, despite having more rides than casuals, don't come anywhere close to the #1 spot for casual riders in terms of ride count.
+
+These findings are really helpful for understanding how these two types of riders use Cyclistic differently - but I have one more area of analysis I want to look into before I move onto visualizing my findings. At the start of the analysis we saw that casuals ride for longer on average compared to members. To explore this further, I'll create a temp table for long rides that I can easily query if I to know more them specifically:
+```
+-- Creating a temp table.
+DROP TABLE IF EXISTS #long_ride_lengths
+CREATE TABLE #long_ride_lengths (
+	member_casual nvarchar(255),
+	rideable_type nvarchar(255),
+	ride_length time(0),
+	day_of_week numeric,
+	month_of_year numeric
+	)
+	
+INSERT INTO #long_ride_lengths
+SELECT
+	member_casual,
+	rideable_type,
+	ride_length,
+	day_of_week,
+	month_of_year
+FROM 
+	td_year
+WHERE
+	ride_length >= '00:30:00';
+```
+Since the upper average between both riders is 20 minutes, I'll classify a _long ride_ as any ride duration more than or equal to 30 minutes. I'll run a simple query on this new temp table:
+```
+SELECT
+	member_casual,
+	COUNT(*) AS num_riders,
+	ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM #long_ride_lengths), 2) AS percentage
+FROM
+	#long_ride_lengths
+GROUP BY
+	member_casual;
+```
+Result:
+
+![long_ride_trends](images/long_ride_trends.png)
+
+And as easy as that, I can run the simple queries I used at the start to focus on long rides. Of all the long rides it looks like casuals make up about 2/3rds of them. 
+
+Now that I got the chance to conduct some exploratory analysis in SQL, I have a good understanding on the key differences between member and casual riders. The next step is to take my findings to Tableau to visualize them.
+
+## Share Phase
+
+
+
+
 
 
 
