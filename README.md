@@ -173,6 +173,7 @@ Result:
 Immediately, it's clear that members outperform casual riders on any given day. Not too surprising since members account for nearly double the amount of rides of casual riders. What's more important to look at are the most popular days for each type of rider. It seems members seem to favor the weekdays while casual riders are more active on the weekends. Now that I know what days are popular for each type of rider, I want to check on the months.
 
 ```
+-- Viewing trends of riders during different months.
 SELECT
 	member_casual AS type,
 	month_of_year,
@@ -189,7 +190,31 @@ This query gives the following result:
 
 ![month_trends](images/month_trends.png)
 
-I'm relying on the percentage column I added to the query to quickly identify months where activity increases. After doing so, I notice that the trends in activity are quite similar between members and casual riders. It makes sense that riders are more active in the spring and summer months - better weather makes for better riding conditions.
+I'm relying on the percentage column I added to the query to quickly identify months where activity increases. After doing so, I notice that the trends in activity are quite similar between members and casual riders. It makes sense that riders are more active in the spring and summer months - better weather makes for better riding conditions. 
+
+Next, I want to see if there is any difference in rideable usage between the two types of riders. To do this I run the following query:
+```
+-- Viewing what type of bike riders of each type use most.
+SELECT
+	 member_casual,
+	 rideable_type,
+	 COUNT(*) AS num_riders,
+	 CONVERT(TIME, DATEADD(SECOND, AVG(DATEDIFF_BIG(SECOND, 0, ride_length)), 0)) AS average_duration,
+	 ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM td_year), 2) AS percentage
+FROM
+	td_year
+GROUP BY
+	member_casual, rideable_type
+ORDER BY member_casual, num_riders DESC;
+```
+Result:
+
+![rideable_trends](images/rideable_trends.png)
+
+The trends regarding the rideable usage are quite similar between the two groups. With both member and casual riders we have the electric bike being the most used, followed closely by the classic bike, then finally we have the electric scooter as the least used option of the three. 
+
+Now, I want to explore the geographical data. I'll run a query to see where both types of riders are most commonly starting and ending their rides.
+
 
 
 ## Repository Contents
