@@ -311,6 +311,10 @@ Now that I got the chance to conduct some exploratory analysis in SQL, I have a 
 
 ## Share Phase
 
+For the share phase, I need to create compelling and detailed visuals backing up my insights. The detail-oriented Cyclistic executive team will be the ones responsible for approving of the recommendations I give based on my analysis. Knowing this, I need to make sure my visualizations are comprehensive, accurate, and answer the business question tasked for me - **How do annual members and casual riders use Cyclistic bikes differently?**
+
+Since the focus is on _differences_ between the two types of riders, I want to use the SQL queries that highlight those differences the best for my visualizations. That way the executive team can understand the reasoning behind the actions I recommend at the end of my analysis. I'll work on making visualizations for individual insights then adding them all to a dashboard for an easy-to-view experience of all of my findings. 
+
 
 
 
