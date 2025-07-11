@@ -315,7 +315,33 @@ For the share phase, I need to create compelling and detailed visuals backing up
 
 Since the focus is on _differences_ between the two types of riders, I want to use the SQL queries that highlight those differences the best for my visualizations. That way the executive team can understand the reasoning behind the actions I recommend at the end of my analysis. I'll work on making visualizations for individual insights then adding them all to a dashboard for an easy-to-view experience of all of my findings. 
 
+The first thing I want to add to my dashboard is a simple table for the number of riders for each of the types. It won't be anything fancy, but I'll be adding a lot of different types of visualizations so I don't want the dashboard looking too busy if I can avoid it. This table will act as an easy to understand insight that member riders do outnumber the casual riders; it's clean and gets the point across. 
 
+![rider_numbers_viz](images/rider_numbers_viz.png)
+
+I'll be using blue to represent casual riders and orange to represent member riders across all of the visualizations - this will make it intuitive to understand the insights when jumping from data viz to data viz. 
+
+Next thing I want to add to the dashboard is a visualization for the differences in average duration between the two types. 
+
+![average_duration_viz](images/average_ride_duration_viz.png)
+
+Again, keeping it simple - I want the executive team to be able to understand the findings I'm presenting at a quick glance. It's plain to see - casual riders ride for longer on average.
+
+...speaking of long rides: 
+
+![long_rides](images/updated_long_rides_viz.png)
+
+A pie chart to show the proportion of casuals and members who embark on long rides.
+
+Now for one of my favorite visualizations of this analysis - the days of the week trends:
+
+![days](images/days_viz.png)
+
+This bar graph does a great job at showing how visualizations can be a great way to tell stories with data. Compare this representation of the data with the results obtained in SQL:
+
+![week_trends](images/day_of_week_trends.png) 
+
+They're both based off the same data, but the bar graph does a better job at showcasing the differences between the riders with contrast - especially at a quick glance. It's clear to see that the behaviors are almost inverse; they both dip and rise in number on different days which is a really interesting insight. 
 
 
 
