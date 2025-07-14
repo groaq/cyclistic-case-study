@@ -343,6 +343,27 @@ This bar graph does a great job at showing how visualizations can be a great way
 
 They're both based off the same data, but the bar graph does a better job at showcasing the differences between the riders with contrast - especially at a quick glance. It's clear to see that the behaviors are almost inverse; they both dip and rise in number on different days which is a really interesting insight. 
 
+The last visualization I want to add to the dashboard uses the geographic data using the starting latitude and longitude collected in the historical trip data. I'll be using just the starting positions for the rides, as the data for the ending positions look similar enough when plotted on the map that I don't believe it will provide enough value to the audience at a glance. Additionally, it makes sense to focus on the differences in starting points between the riders because we can focus on riders intending to start a ride in our marketing strategies.
+
+The map using the data of both riders looks like this:
+![startpoints_all](images/startpoints_all.png)
+
+Casual and Member data filtered:
+![startpoints_casual](images/startpoints_casual.png)
+![startpoints_member](images/startpoints_member.png)
+
+This visualization seems to support the findings made in SQL where we saw that casual riders have a few very popular areas that outperform the other starting locations by a significant amount whereas the member riders have more of an even spread across the area. As noted earlier, the top result for starting station in terms of rider numbers for casuals was _Streeter Dr & Grand Ave_. This is located right next to Navy Pier of Lake Michigan. Given the observations made in SQL and in Tableau, I believe the waterfront of Lake Michigan, especially near Navy Pier, is a key area to focus for marketing towards casual riders. 
+
+With all of those visualizations put together, the final step for this phase is to put them all into one dashboard for easy-to-view access. Using this dashboard, I can provide the Cyclistic executive team with digestible visualizations for quick insights as well as background for the recommendations I suggest in the Act Phase.
+
+### Tableau Dashboard
+![dashboard](images/dashboard_final.png)
+
+## Act Phase
+
+
+
+
 
 
 
@@ -355,10 +376,6 @@ They're both based off the same data, but the bar graph does a better job at sho
   
 ---
 
-## Tableau Dashboard
-
-
----
 
 ## Work in Progress
 
