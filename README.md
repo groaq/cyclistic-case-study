@@ -420,9 +420,3 @@ And with that, this is the end of my Cyclistic Case Study! This capstone project
 - `sql/` – Contains SQL queries and scripts used for data wrangling and analysis.
 - `visualizations/` – For Tableau dashboard files and other visualizations.
   
----
-
-
-## Work in Progress
-
-This repository and documentation are a work in progress. More details, analysis, and visualizations will be added soon.
