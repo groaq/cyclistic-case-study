@@ -1,8 +1,18 @@
 # Cyclistic Case Study – Google Data Analytics Capstone
 
-Hi, and welcome to my capstone project for Google’s Data Analytics Professional Certificate!
+## Introduction
 
-In this project, I complete a case study which takes me through all phases of the data analysis process. Before I go into the details of the process, I’ll lay out the scenario:  
+**How do you convince someone to buy a service before they even realize they want to?**
+
+That was the challenge I was faced with when looking at the data for this analysis. This case study walks through how I leveraged user data to reveal meaningful insights and trends that lead to smart marketing strategies.
+
+---
+
+Hi, and welcome to my capstone project for the Google Data Analytics Professional Certificate!
+
+In this project, I complete a case study which takes me through all phases of the data analysis process. 
+
+Before I go into the details of the process, I’ll lay out the scenario:  
 
 ---
 
@@ -361,6 +371,41 @@ With all of those visualizations put together, the final step for this phase is 
 
 ## Act Phase
 
+Having the insights I've gotten from the analysis, it's time to propose three recommendations to the Cyclistic executive team. I'll reiterate the business task I defined earlier:
+**Using Cyclistic’s historical trip data, identify the key differences between how annual members and casual riders use Cyclistic bikes. After identifying these differences, propose three recommendations to convert casual riders into annual members.**
+
+The key differences I've identified between annual members and casual riders are these:
+- Casual riders prefer weekends while members prefer the week days.
+- Casual riders ride longer than member riders on average.
+- Casual riders often start rides closer to Lake Michigan.
+
+With those differences in mind, here are my recommendations for converting casual riders to annual members:
+
+### Recommendations
+
+1.) Introduce an annual membership plan for weekend riders.
+	- This will be a cheaper option of annual membership focused on fitting the preferred schedule of weekend riders.
+ 	- Optionally, we can offer riders of the weekend annual membership the option to transition into the standard annual membership if they decide they'd like to have membership perks throughout the whole week.
+  	This recommendation aligns with the behavior of casual riders, as well as acting as a pathway to securing standard annual memberships after hooking the rider on the perks.
+
+2.) Offer cheaper per-minute fees for annual members.
+	- With each pass, offer free 30 minutes per ride with a per-minute fee for every minute exceeding 30 minutes.
+ 	- Inform casual riders about how much they can save after each ride by becoming an annual member.
+  	By comparing savings on long rides, we can appeal to the casual riders who often go over the allotted 30 minutes given with each ride.
+
+3.) Launch location-based promotions near popular casual start points.
+	- Place either physical or in-app promotional materials at popular locations (locations exceeding _x_ amount of casual riders).
+ 	- Offer 1-week trial memberships in these promotions to give riders a taste of the advantages that come with having a membership.
+  	This meets casual riders where they are and provides a low-commitment entry to Cyclistic memberships. 
+
+And with that, this is the end of my Cyclistic Case Study! This capstone project gave me a great sense of where I'm at with each phase of analysis, allowed me to practice documenting my findings, and overall made me a stronger data analyst. I feel accomplished with my results and I plan to apply everything I learned in this case study to my future projects. Thank you for reading!
+  	
+  
+
+  
+
+
+
 
 
 
@@ -371,6 +416,7 @@ With all of those visualizations put together, the final step for this phase is 
 ## Repository Contents
 
 - `datasets/` - The datasets used in this project.
+- `images/` - All of the image files presented in the README.
 - `sql/` – Contains SQL queries and scripts used for data wrangling and analysis.
 - `visualizations/` – For Tableau dashboard files and other visualizations.
   
